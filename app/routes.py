@@ -2,9 +2,9 @@ from flask import render_template, request
 from app import app
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def login_page():
-    return render_template("login.html", show_header=False)
+    return render_template("login.html")
 
 
 @app.route('/login', methods=['POST'])
@@ -17,9 +17,9 @@ def login():
         return render_template("wrong_login.html")
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET'])
 def register():
-    return render_template("register.html", show_header=False)
+    return render_template("register.html")
 
 
 @app.route("/registration", methods=['POST'])
@@ -29,3 +29,7 @@ def registration():
     mobile = request.form.get('mobile')
     email = request.form.get('email')
     render_template("base.html")
+
+@app.route('/main', methods=['GET'])
+def main_page():
+    return render_template("main.html")
