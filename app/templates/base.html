@@ -3,19 +3,17 @@
 	<head>
 		<!-- Jquery -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>    
+        
         <meta name = "viewport" content = "width = device-width, initial-scale = 1">      
 
 		<!-- Google Icon Font -->
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-		<!-- Materialize CSS -->
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
 		<!-- Materialize JS	-->
-    	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
 		
 		<!-- Base CSS -->
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='materialize.css') }}">
 
 		<title>Software Helpdesk System</title>
 	</head>
@@ -23,17 +21,17 @@
 		<main>
 			{% block content %}{% endblock %}
 		</main>
-		<footer class = "page-footer">
-			<div class = "row">
-				<div class = "col s6 m7 l12">
-					<h5 class = "white-text">Helpdesk System</h5>
-				</div>
-			</div>
-			<div class = "footer-copyright">
-				<div class = "container">
-					<p class="center-align">Designed by Anmol Chawla</p>
-				</div>
-			</div>
-		</footer>
+		<footer class="page-footer">
+	        <div class="row">
+	          <div class="col l6 s12">
+	            <h5 class="white-text ">Helpdesk System</h5>
+	          </div>
+          	</div>
+          <div class="footer-copyright">
+            <div class="container center">
+	            Designed by Anmol Chawla
+            </div>
+          </div>
+        </footer>
 	</body>
 </html>

@@ -6,5 +6,5 @@ app = Flask(__name__)
 
 def create_app():
     global app
-    from app import routes
+    from app import views
     return app
