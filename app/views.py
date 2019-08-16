@@ -86,3 +86,7 @@ def main_worker():
 @app.route('/jobs', methods=['GET'])
 def main_jobs():
     return render_template('jobs.html', jobs=jobs)
+
+@app.route('/about', methods=['GET'])
+def main_about():
+    return render_template('about.html')
