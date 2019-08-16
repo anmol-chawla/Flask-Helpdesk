@@ -90,3 +90,7 @@ def main_jobs():
 @app.route('/about', methods=['GET'])
 def main_about():
     return render_template('about.html')
+
+@app.route('/credits', methods=['GET'])
+def main_credits():
+    return render_template('credits.html')
