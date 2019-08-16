@@ -1,0 +1,34 @@
+{% extends "main.html" %}
+
+{% block tab %}
+<div class="container">
+    <div class="col s12 m5">
+      <div class="card-panel">
+        This page shows the various workers and their teams.
+      </div>
+    </div>
+    <div class="card col s12 m6">
+    	<div class="container">
+    		<table class="highlight centered responsive-table">
+        		<thead>
+          			<tr>
+          	  			<th>Number</th>
+              			<th>Worker</th>
+              			<th>Team</th>
+          			</tr>
+        		</thead>
+        		<tbody>
+              {% for worker in workers %}
+                <tr>
+                  <td>{{worker['number']}}</td>
+                  <td>{{worker['worker_name']}}</td>
+                  <td>{{worker['team_name']}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+      		</table>
+  		</div>
+	</div>
+	<a class="waves-effect waves-light btn-large red accent-2">Add more workers</a>
+</div>
+{% endblock %}
