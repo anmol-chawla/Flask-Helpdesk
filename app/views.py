@@ -30,10 +30,59 @@ def registration():
     email = request.form.get('email')
     render_template("base.html")
 
+
 @app.route('/main', methods=['GET'])
 def main_page():
     return render_template("main.html")
 
+
+teams = [{
+    'number': 1,
+    'team_name': 'IT',
+    'jobs_assigned': 5
+},
+    {
+    'number': 2,
+    'team_name': 'Marketing',
+    'jobs_assigned': 4
+}
+]
+
+workers = [{
+    'number': 1,
+    'worker_name': 'Alvin',
+    'team_name': 'IT'
+},
+    {
+    'number': 2,
+    'worker_name': 'Kirk',
+    'team_name': 'Marketing'
+}
+]
+
+jobs = [{
+    'number': 1,
+    'job_title': 'Internet',
+    'job_description': 'Internet is not working',
+    'team_assigned': 'IT'
+},
+{
+    'number': 2,
+    'job_title': 'Sales',
+    'job_description': 'The sales of products is going down',
+    'team_assigned': 'Marketing'
+}]
+
 @app.route('/teams', methods=['GET'])
 def main_team():
-    return render_template('teams.html')
+    return render_template('teams.html', teams=teams)
+
+
+@app.route('/workers', methods=['GET'])
+def main_worker():
+    return render_template('workers.html', workers=workers)
+
+
+@app.route('/jobs', methods=['GET'])
+def main_jobs():
+    return render_template('jobs.html', jobs=jobs)

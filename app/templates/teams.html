@@ -4,7 +4,7 @@
 <div class="container">
     <div class="col s12 m5">
       <div class="card-panel">
-        This page shows the various teams and their workers present.
+        This page shows the various teams.
       </div>
     </div>
     <div class="card col s12 m6">
@@ -13,29 +13,22 @@
         		<thead>
           			<tr>
           	  			<th>Number</th>
-              			<th>Name</th>
               			<th>Team</th>
+              			<th>Jobs Assigned</th>
           			</tr>
         		</thead>
         		<tbody>
-          			<tr>
-            			<td>Alvin</td>
-            			<td>Eclair</td>
-            			<td>$0.87</td>
-          			</tr>
-          			<tr>
-            			<td>Alan</td>
-            			<td>Jellybean</td>
-            			<td>$3.76</td>
-          			</tr>
-          			<tr>
-            			<td>Jonathan</td>
-            			<td>Lollipop</td>
-            			<td>$7.00</td>
-          			</tr>
+        			{% for team in teams %}
+        				<tr>
+        					<td>{{team['number']}}</td>
+        					<td>{{team['team_name']}}</td>
+        					<td>{{team['jobs_assigned']}}</td>
+        				</tr>
+        			{% endfor %}
         		</tbody>
       		</table>
   		</div>
 	</div>
+	<a class="waves-effect waves-light btn-large red accent-2">Add more teams</a>
 </div>
 {% endblock %}
