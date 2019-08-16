@@ -7,24 +7,23 @@
 		<a href="#" class="brand-logo" style="margin-left:6px;">Welcome</a>
 		<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
+			<li><a href="/main">Home</a></li>
 			<li><a href="/about">About</a></li>
-			<li><a href="#">Action 2</a></li>
-			<li><a href="#">Action 3</a></li>
+			<li><a href="/credits">Credits</a></li>
 		</ul>
 	</div>
 	<div class="nav-content">
 		<ul class="tabs tabs-transparent">
-			<li class="tab"><a href="/teams">Teams</a></li>
-			<li class="tab"><a href="/workers">Workers</a></li>
-			<li class="tab"><a href="/jobs">Jobs</a></li>
+			<li class="tab"><a href="/teams" target="_self">Teams</a></li>
+			<li class="tab"><a href="/workers" target="_self">Workers</a></li>
+			<li class="tab"><a href="/jobs" target="_self">Jobs</a></li>
 		</ul>
 	</div>
 </nav>
 <ul class="sidenav" id="mobile-demo">
-	<li><a href="#">Sass</a></li>
-	<li><a href="#">Components</a></li>
-	<li><a href="#">Javascript</a></li>
-	<li><a href="#">Mobile</a></li>
+	<li><a href="/main">Home</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/credits">Credits</a></li>
 </ul>
 
 <div class="container">	
@@ -34,5 +33,13 @@
   $(document).ready(function(){
     $('.sidenav').sidenav();
   });
+  $(document).ready(function(){
+  	var instance = M.Tabs.init(el, options);
+  });
+
+  // $(document).ready(function(){
+  // var instance = M.Tabs.getInstance();
+  // instance.updateTabIndicator();
+// });
 </script>
 {% endblock %}

@@ -9083,7 +9083,6 @@ input[type=range]::-ms-thumb {
     margin-top: 1.2rem;
   }
 }
-
 body {
   display: flex;
   min-height: 100vh;
