@@ -14,9 +14,9 @@
 	</div>
 	<div class="nav-content">
 		<ul class="tabs tabs-transparent">
-			<li class="tab"><a href="/teams" target="_self">Teams</a></li>
-			<li class="tab"><a href="/workers" target="_self">Workers</a></li>
-			<li class="tab"><a href="/jobs" target="_self">Jobs</a></li>
+			<li class="tab" id='teams'><a href="/teams" target="_self">Teams</a></li>
+			<li class="tab" id='workers'><a href="/workers" target="_self">Workers</a></li>
+			<li class="tab" id='jobs'><a href="/jobs" target="_self">Jobs</a></li>
 		</ul>
 	</div>
 </nav>
@@ -34,12 +34,7 @@
     $('.sidenav').sidenav();
   });
   $(document).ready(function(){
-  	var instance = M.Tabs.init(el, options);
-  });
-
-  // $(document).ready(function(){
-  // var instance = M.Tabs.getInstance();
-  // instance.updateTabIndicator();
-// });
+  	$('ul.tabs').tabs();
+  })
 </script>
 {% endblock %}
