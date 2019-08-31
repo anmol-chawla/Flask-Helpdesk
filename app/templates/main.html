@@ -33,9 +33,7 @@
 <script>
   $(document).ready(function(){
     $('.sidenav').sidenav();
-  });
-  $(document).ready(function(){
-  	$('.tabs').tabs();
+    $('.tabs').tabs();
   	$.ajax("{{ url_for('main_team') }}").done(function(reply){
   				$('#teams').html(reply);
   		})
