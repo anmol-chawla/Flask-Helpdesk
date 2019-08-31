@@ -91,7 +91,19 @@ def main_worker():
 
 @app.route('/jobs', methods=['GET'])
 def main_jobs():
-    return render_template('jobs.html', jobs=jobs)
+    teams = {
+        '1': {
+            'id': 1,
+            'name': 'IT',
+            'workers': [{'id': 1, 'name': 'Alvin'}, {'id': 2, 'name': 'Mark'}]
+        },
+        '2': {
+            'id': 2,
+            'name': 'Marketing',
+            'workers': [{'id': 1, 'name': 'Kirk'}]
+        }
+    }
+    return render_template('jobs.html', jobs=jobs, teams=teams)
 
 
 @app.route('/about', methods=['GET'])
