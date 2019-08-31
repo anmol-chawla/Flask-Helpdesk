@@ -1,3 +1,5 @@
+import datetime
+
 from flask import render_template, request, redirect, url_for
 from app import app
 
@@ -64,13 +66,16 @@ jobs = [{
     'id': 1,
     'job_title': 'Internet',
     'job_description': 'Internet is not working',
-    'team_assigned': 'IT'
+    'team_assigned': 'IT',
+    'created_at': datetime.datetime.now().strftime("%a, %d %b %Y")
 },
     {
     'id': 2,
     'job_title': 'Sales',
     'job_description': 'The sales of products is going down',
-    'team_assigned': 'Marketing'
+    'team_assigned': 'Marketing',
+    'created_at': datetime.datetime.now().strftime("%a, %d %b %Y")
+
 }]
 
 
