@@ -31,6 +31,75 @@
       		</table>
   		</div>
 	</div>
-	<a class="waves-effect waves-light btn-large red accent-2">Add more jobs</a>
+	<!-- Modal Trigger for Team Form -->
+    <a class="waves-effect waves-light btn-large red accent-2 modal-trigger" href="#addjobss">Add more jobs</a>
+
+  <!-- Modal Structure -->
+    <div id="addjobss" class="modal">
+      <div class="modal-content">
+        <h5>Add a Job</h5>
+          <form action="/add/job" method="POST" name="jobform" id='jobform'>
+            <div class="container">
+              	<div class='row'>
+              		<div class='input-field col s12'>
+                        <input class='validate' type="text" name='jobtitle' required />
+                        <label for='jobtitle'>Job Title</label>
+                    </div>
+            	</div>
+              	<div class='row'>
+              		<div class='input-field col s12'>
+                        <input class='validate' type="text" name='jobdesc' required />
+                        <label for='jobdesc'>Job Description</label>
+                    </div>
+            	</div>
+				<div class="row">
+					<div class='input-field col s12'>
+						<select name="team" id="team">
+							<option value="" disabled selected>Choose team to assign job to</option>
+						</select>
+						<label>Team</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class='input-field col s12'>
+						<select name="worker" id="worker">
+							<option value="" disabled selected>Choose worker to assign job to</option>
+						</select>
+						<label>Team</label>
+					</div>
+				</div>
+          </div>
+          <div class="modal-footer">
+                    <button style="margin-left:45px;" id="submitform" type='submit' name='btn_team' class='modal-close waves-effect waves-red btn-flat' >Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.modal').modal();
+  });
+	var teams = {{ teams|tojson }};
+	var form = $('#jobform');
+	var team = $('select#team');
+	var worker = $('select#worker');
+
+	for (var key in teams){
+		team.append($('<option>').attr("value",teams[key]['id']).text(teams[key]['name']));
+	}
+    $('select#team').formSelect();
+
+	team.change(function(ev) {
+		worker.empty();
+		worker.append($('<option>').attr("value", "").text("Choose worker to assign job to"));
+
+		var workers = teams[team.val()]['workers'];
+		for (var w in workers){
+			worker.append($('<option>').attr("value",workers[w]['id']).text(workers[w]['name']));
+		}
+		$('select#worker').formSelect();
+	})
+
+</script>
 {% endblock %}
