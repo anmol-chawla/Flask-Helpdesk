@@ -54,7 +54,7 @@
             	</div>
 				<div class="row">
 					<div class='input-field col s12'>
-						<select name="team" id="team">
+						<select name="team" id="team" required="required">
 							<option value="" disabled selected>Choose team to assign job to</option>
 						</select>
 						<label>Team</label>
@@ -62,7 +62,7 @@
 				</div>
 				<div class="row">
 					<div class='input-field col s12'>
-						<select name="worker" id="worker">
+						<select name="worker" id="worker" required="required">
 							<option value="" disabled selected>Choose worker to assign job to</option>
 						</select>
 						<label>Worker</label>
@@ -70,7 +70,7 @@
 				</div>
           </div>
           <div class="modal-footer">
-                    <button style="margin-left:45px;" id="submitform" type='submit' name='btn_team' class='modal-close waves-effect waves-red btn-flat' >Add</button>
+                    <button style="margin-left:45px;" id="submitform" type='submit' name='btn_team' class='waves-effect waves-red btn-flat' onclick="check()">Add</button>
           </div>
         </form>
       </div>
@@ -79,6 +79,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $('.modal').modal();
+    $("select[required]").css({display: "block", height: 0, padding: 0, width: 0, position: 'absolute'});
+
   });
 	var teams = {{ teams|tojson }};
 	var form = $('#jobform');
@@ -100,6 +102,13 @@ $(document).ready(function(){
 		}
 		$('select#worker').formSelect();
 	})
-
+  function check(){
+  var name = document.forms["jobform"]["jobtitle"].value;
+  var desc = document.forms["jobform"]["jobdesc"].value;
+  var team = document.forms["jobform"]["team"].value;
+  var name = document.forms["jobform"]["worker"].value;
+  if (name !== "" && team !== "" && worker !== "" && desc != "")  
+    $('.modal').modal('close');
+ }
 </script>
 {% endblock %}
