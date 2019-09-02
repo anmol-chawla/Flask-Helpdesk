@@ -9,28 +9,10 @@ def login_page():
     return render_template("login.html")
 
 
-@app.route('/login', methods=['POST'])
-def login():
-    username = request.form.get('username')
-    password = request.form.get('password')
-    if username == 'test' and password == '1234':
-        return redirect(url_for('main_page'))
-    else:
-        return render_template("wrong_login.html")
-
-
 @app.route('/register', methods=['GET'])
 def register():
     return render_template("register.html")
 
-
-@app.route("/registration", methods=['POST'])
-def registration():
-    usernmae = request.form.get('username')
-    password = request.form.get('password')
-    mobile = request.form.get('mobile')
-    email = request.form.get('email')
-    render_template("base.html")
 
 
 @app.route('/main', methods=['GET'])
@@ -114,3 +96,47 @@ def main_about():
 @app.route('/credits', methods=['GET'])
 def main_credits():
     return render_template('credits.html')
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if username == 'test' and password == '1234':
+        return redirect(url_for('main_page'))
+    else:
+        return render_template("wrong_login.html")
+
+
+@app.route("/registration", methods=['POST'])
+def registration():
+    usernmae = request.form.get('username')
+    password = request.form.get('password')
+    mobile = request.form.get('mobile')
+    email = request.form.get('email')
+    return redirect(url_for(login_page))
+
+
+@app.route('/add/team', methods=['POST'])
+def add_team():
+    team_name = request.form.get('teamname')
+    print(team_name)
+    return redirect(url_for('main_page'))
+
+
+@app.route('/add/worker', methods=['POST'])
+def add_worker():
+    worker_name = request.form.get('workername')
+    team_id = request.form.get('team')
+    print(worker_name, team_id)
+    return redirect(url_for('main_page'))
+
+
+@app.route('/add/job', methods=['POST'])
+def add_job():
+    job_title = request.form.get('jobtitle')
+    job_desc = request.form.get('jobdesc')
+    team_id = request.form.get('team')
+    worker_id = request.form.get('worker')
+    print(job_title, job_desc, team_id, worker_id)
+    return redirect(url_for('main_page'))
