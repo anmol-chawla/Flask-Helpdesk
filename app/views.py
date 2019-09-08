@@ -1,6 +1,6 @@
 import datetime
 
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from app import app
 
 
@@ -17,7 +17,8 @@ def register():
 
 @app.route('/main', methods=['GET'])
 def main_page():
-    return render_template("main.html")
+    page = request.args.get('page')
+    return render_template("main.html", page=page)
 
 
 teams = [{
@@ -103,7 +104,7 @@ def login():
     username = request.form.get('username')
     password = request.form.get('password')
     if username == 'test' and password == '1234':
-        return redirect(url_for('main_page'))
+        return redirect(url_for('main_page', page='teams'))
     else:
         return render_template("wrong_login.html")
 
@@ -120,16 +121,14 @@ def registration():
 @app.route('/add/team', methods=['POST'])
 def add_team():
     team_name = request.form.get('teamname')
-    print(team_name)
-    return redirect(url_for('main_page'))
+    return redirect(url_for('main_page', page='teams'))
 
 
 @app.route('/add/worker', methods=['POST'])
 def add_worker():
     worker_name = request.form.get('workername')
     team_id = request.form.get('team')
-    print(worker_name, team_id)
-    return redirect(url_for('main_page'))
+    return redirect(url_for('main_page', page='workers'))
 
 
 @app.route('/add/job', methods=['POST'])
@@ -138,5 +137,4 @@ def add_job():
     job_desc = request.form.get('jobdesc')
     team_id = request.form.get('team')
     worker_id = request.form.get('worker')
-    print(job_title, job_desc, team_id, worker_id)
-    return redirect(url_for('main_page'))
+    return redirect(url_for('main_page', page='jobs'))

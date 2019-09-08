@@ -14,7 +14,7 @@
 	</div>
 	<div class="nav-content">
 		<ul class="tabs tabs-transparent">
-			<li class="tab"><a class="active" href="#teams" onclick="call_team()">Teams</a></li>
+			<li class="tab"><a href="#teams" onclick="call_team()">Teams</a></li>
 			<li class="tab"><a href="#workers" onclick="call_worker()">Workers</a></li>
 			<li class="tab"><a href="#jobs" onclick="call_job()">Jobs</a></li>
 		</ul>
@@ -34,10 +34,23 @@
   $(document).ready(function(){
     $('.sidenav').sidenav();
     $('.tabs').tabs();
-  	$.ajax("{{ url_for('main_team') }}").done(function(reply){
-  				$('#teams').html(reply);
-  		})
-  });
+    {% if page == 'teams' %}
+      $.ajax("{{ url_for('main_team') }}").done(function(reply){
+            $('#teams').html(reply);
+        })
+      $('.tabs').tabs('select','teams');
+    {% elif page == 'workers' %}
+      $.ajax("{{ url_for('main_worker') }}").done(function(reply){
+            $('#teams').html(reply);
+        })
+      $('.tabs').tabs('select','workers');
+    {% elif page == 'jobs' %}
+      $.ajax("{{ url_for('main_jobs') }}").done(function(reply){
+            $('#teams').html(reply);
+        })
+      $('.tabs').tabs('select','jobs');
+    {% endif %}
+});
   function call_team(){
   		$.ajax("{{ url_for('main_team') }}").done(function(reply){
   				$('#teams').html(reply);
