@@ -18,6 +18,8 @@ def register():
 @app.route('/main', methods=['GET'])
 def main_page():
     page = request.args.get('page')
+    if page is None:
+        page = 'teams'
     return render_template("main.html", page=page)
 
 
