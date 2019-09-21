@@ -137,6 +137,10 @@ def registration():
 @app.route('/add/team', methods=['POST'])
 def add_team():
     team_name = request.form.get('teamname')
+    new_team = Team(team_name=team_name)
+    with app.app_context():
+        db.session.add(new_team)
+        db.session.commit()
     return redirect(url_for('main_page', page='teams'))
 
 
@@ -144,6 +148,13 @@ def add_team():
 def add_worker():
     worker_name = request.form.get('workername')
     team_id = request.form.get('team')
+    new_worker = Worker(
+        worker_name-worker_name,
+        team_id=team_id
+        )
+    with app.app_context():
+        db.session.add(new_worker)
+        db.session.commit()
     return redirect(url_for('main_page', page='workers'))
 
 
@@ -153,4 +164,12 @@ def add_job():
     job_desc = request.form.get('jobdesc')
     team_id = request.form.get('team')
     worker_id = request.form.get('worker')
+    new_job = Job(
+        job_title=job_title,
+        job_desc=job_desc,
+        team_id=team_id,
+        worker_id=worker_id)
+    with app.app_context():
+        db.session.add(new_job)
+        db.session.commit()
     return redirect(url_for('main_page', page='jobs'))
