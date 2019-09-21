@@ -41,12 +41,12 @@
       $('.tabs').tabs('select','teams');
     {% elif page == 'workers' %}
       $.ajax("{{ url_for('main_worker') }}").done(function(reply){
-            $('#teams').html(reply);
+            $('#workers').html(reply);
         })
       $('.tabs').tabs('select','workers');
     {% elif page == 'jobs' %}
       $.ajax("{{ url_for('main_jobs') }}").done(function(reply){
-            $('#teams').html(reply);
+            $('#jobs').html(reply);
         })
       $('.tabs').tabs('select','jobs');
     {% endif %}
