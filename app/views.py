@@ -23,47 +23,6 @@ def main_page():
     return render_template("main.html", page=page)
 
 
-teams = [{
-    'id': 1,
-    'team_name': 'IT',
-    'jobs_assigned': 5
-},
-    {
-    'id': 2,
-    'team_name': 'Marketing',
-    'jobs_assigned': 4
-}
-]
-
-workers = [{
-    'id': 1,
-    'worker_name': 'Alvin',
-    'team_name': 'IT'
-},
-    {
-    'id': 2,
-    'worker_name': 'Kirk',
-    'team_name': 'Marketing'
-}
-]
-
-jobs = [{
-    'id': 1,
-    'job_title': 'Internet',
-    'job_description': 'Internet is not working',
-    'team_assigned': 'IT',
-    'created_at': datetime.datetime.now().strftime("%a, %d %b %Y")
-},
-    {
-    'id': 2,
-    'job_title': 'Sales',
-    'job_description': 'The sales of products is going down',
-    'team_assigned': 'Marketing',
-    'created_at': datetime.datetime.now().strftime("%a, %d %b %Y")
-
-}]
-
-
 @app.route('/teams', methods=['GET'])
 def main_team():
     teams = []
