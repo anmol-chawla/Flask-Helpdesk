@@ -111,7 +111,7 @@ def main_jobs():
             'job_title': job.job_title,
             'job_description': job.job_desc,
             'team_assigned': Team.query.filter_by(team_id=job.team_id).first().team_name,
-            'worker_assigned': Worker.query.filter_by(team_id=job.team_id, worker_id=worker_id).first().worker_name,
+            'worker_assigned': Worker.query.filter_by(team_id=job.team_id, worker_id=job.worker_id).first().worker_name,
             'created_at': job.created_at.strftime("%a, %d %b %Y")
         }
         jobs.append(dic)
@@ -124,6 +124,7 @@ def main_jobs():
             dic = {}
             dic['id'] = worker.worker_id
             dic['name'] = worker.worker_name
+            workers.append(dic)
         teams[team.team_id] = {
             'id': team.team_id,
             'name': team.team_name,
