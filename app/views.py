@@ -1,8 +1,14 @@
 import datetime
 
-from flask import render_template, request, redirect, url_for, session
-from app import app, db
+from flask import render_template, request, redirect, url_for
+from flask_login import current_user, login_user, logout_user, login_required
+from app import app, db, login
 from .models import User, Team, Worker, Job
+
+
+@login.unauthorized_handler
+def unauthorised():
+    return render_template("wrong_login.html", error_string="Please login to continue")
 
 
 @app.route('/', methods=['GET'])
@@ -16,6 +22,7 @@ def register():
 
 
 @app.route('/main', methods=['GET'])
+@login_required
 def main_page():
     page = request.args.get('page')
     if page is None:
@@ -24,6 +31,7 @@ def main_page():
 
 
 @app.route('/teams', methods=['GET'])
+@login_required
 def main_team():
     teams = []
     db_teams = Team.query.all()
@@ -38,6 +46,7 @@ def main_team():
 
 
 @app.route('/workers', methods=['GET'])
+@login_required
 def main_worker():
     teams = []
     db_teams = Team.query.all()
@@ -61,6 +70,7 @@ def main_worker():
 
 
 @app.route('/jobs', methods=['GET'])
+@login_required
 def main_jobs():
     jobs = []
     db_jobs = Job.query.all()
@@ -93,27 +103,38 @@ def main_jobs():
 
 
 @app.route('/about', methods=['GET'])
+@login_required
 def main_about():
     return render_template('about.html')
 
 
 @app.route('/credits', methods=['GET'])
+@login_required
 def main_credits():
     return render_template('credits.html')
+
+@app.route('/logout', methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login_page'))
 
 
 @app.route('/login', methods=['POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('main_page', page='teams'))
     username = request.form.get('username')
     password = request.form.get('password')
     try:
         user = User.query.filter_by(username=username).first()
         if user.verify_password(password):
+            login_user(user, remember=request.form)
             return redirect(url_for('main_page', page='teams'))
         else:
-            return render_template("wrong_login.html")
+            return render_template("wrong_login.html", error_string="Incorrect username or password")
     except Exception as e:
-        return render_template("wrong_login.html")
+        return render_template("wrong_login.html", error_string="User does not exist")
 
 
 @app.route("/registration", methods=['POST'])
@@ -135,6 +156,7 @@ def registration():
 
 
 @app.route('/add/team', methods=['POST'])
+@login_required
 def add_team():
     team_name = request.form.get('teamname')
     new_team = Team(team_name=team_name)
@@ -145,6 +167,7 @@ def add_team():
 
 
 @app.route('/add/worker', methods=['POST'])
+@login_required
 def add_worker():
     worker_name = request.form.get('workername')
     team_id = request.form.get('team')
@@ -159,6 +182,7 @@ def add_worker():
 
 
 @app.route('/add/job', methods=['POST'])
+@login_required
 def add_job():
     job_title = request.form.get('jobtitle')
     job_desc = request.form.get('jobdesc')

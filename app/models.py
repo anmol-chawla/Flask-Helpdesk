@@ -12,6 +12,9 @@ class User(UserMixin, db.Model):
     mobile = db.Column('mobile', db.String(15))
     password_hash = db.Column('password_hash', db.String(255))
 
+    def get_id(self):
+        return (self.user_id)
+
     def password(self, string):
         '''
             Generate a hashed password
