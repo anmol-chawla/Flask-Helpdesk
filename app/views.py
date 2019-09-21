@@ -1,7 +1,8 @@
 import datetime
 
 from flask import render_template, request, redirect, url_for, session
-from app import app
+from app import app, db
+from .models import User, Team, Worker, Job
 
 
 @app.route('/', methods=['GET'])
@@ -12,7 +13,6 @@ def login_page():
 @app.route('/register', methods=['GET'])
 def register():
     return render_template("register.html")
-
 
 
 @app.route('/main', methods=['GET'])
@@ -105,19 +105,33 @@ def main_credits():
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
-    if username == 'test' and password == '1234':
-        return redirect(url_for('main_page', page='teams'))
-    else:
+    try:
+        user = User.query.filter_by(username=username).first()
+        if user.verify_password(password):
+            return redirect(url_for('main_page', page='teams'))
+        else:
+            return render_template("wrong_login.html")
+    except Exception as e:
         return render_template("wrong_login.html")
+
 
 
 @app.route("/registration", methods=['POST'])
 def registration():
-    usernmae = request.form.get('username')
+    username = request.form.get('username')
     password = request.form.get('password')
     mobile = request.form.get('mobile')
     email = request.form.get('email')
-    return redirect(url_for(login_page))
+    new_user = User(
+        username=username,
+        mobile=mobile,
+        email=email
+    )
+    new_user.password(password)
+    with app.app_context():
+        db.session.add(new_user)
+        db.session.commit()
+    return redirect(url_for('login_page'))
 
 
 @app.route('/add/team', methods=['POST'])
