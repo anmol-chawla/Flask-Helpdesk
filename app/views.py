@@ -76,18 +76,32 @@ def main_worker():
 
 @app.route('/jobs', methods=['GET'])
 def main_jobs():
-    teams = {
-        '1': {
-            'id': 1,
-            'name': 'IT',
-            'workers': [{'id': 1, 'name': 'Alvin'}, {'id': 2, 'name': 'Mark'}]
-        },
-        '2': {
-            'id': 2,
-            'name': 'Marketing',
-            'workers': [{'id': 1, 'name': 'Kirk'}]
+    jobs = []
+    db_jobs = Job.query.all()
+    for job in db_jobs:
+        dic = {
+            'id': job.job_id,
+            'job_title': job.job_title,
+            'job_description': job.job_desc,
+            'team_assigned': Team.query.filter_by(team_id=job.team_id).first().team_name,
+            'worker_assigned': Worker.query.filter_by(team_id=job.team_id, worker_id=worker_id).first().worker_name,
+            'created_at': job.created_at.strftime("%a, %d %b %Y")
         }
-    }
+        jobs.append(dic)
+    teams = {}
+    db_teams = Team.query.all()
+    for team in db_teams:
+        db_workers = Worker.query.filter_by(team_id=team.team_id).all()
+        workers = []
+        for worker in db_workers:
+            dic = {}
+            dic['id'] = worker.worker_id
+            dic['name'] = worker.worker_name
+        teams[team.team_id] = {
+        'id': team.team_id,
+        'name': team.team_name,
+        'workers': workers
+        }
     return render_template('jobs.html', jobs=jobs, teams=teams)
 
 
@@ -113,7 +127,6 @@ def login():
             return render_template("wrong_login.html")
     except Exception as e:
         return render_template("wrong_login.html")
-
 
 
 @app.route("/registration", methods=['POST'])
@@ -151,7 +164,7 @@ def add_worker():
     new_worker = Worker(
         worker_name=worker_name,
         team_id=team_id
-        )
+    )
     with app.app_context():
         db.session.add(new_worker)
         db.session.commit()
