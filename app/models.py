@@ -1,10 +1,10 @@
-import enum
 import datetime
-from app import db
+from app import db, login
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     user_id = db.Column('user_id', db.Integer,
                         primary_key=True, autoincrement=True)
     username = db.Column('username', db.String(255))
@@ -24,6 +24,11 @@ class User(db.Model):
             Check a user's password
         '''
         return check_password_hash(self.password_hash, string)
+
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 
 class Team(db.Model):
@@ -48,4 +53,3 @@ class Job(db.Model):
     worker_id = db.Column('worker_id', db.ForeignKey('worker.worker_id'))
     created_at = db.Column(
         'created_at', db.DateTime, default=datetime.datetime.utcnow)
-
