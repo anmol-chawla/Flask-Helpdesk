@@ -149,7 +149,7 @@ def add_worker():
     worker_name = request.form.get('workername')
     team_id = request.form.get('team')
     new_worker = Worker(
-        worker_name-worker_name,
+        worker_name=worker_name,
         team_id=team_id
         )
     with app.app_context():
