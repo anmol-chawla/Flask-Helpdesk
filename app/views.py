@@ -66,11 +66,38 @@ jobs = [{
 
 @app.route('/teams', methods=['GET'])
 def main_team():
+    teams = []
+    db_teams = Team.query.all()
+    for team in db_teams:
+        dic = {
+            'id': team.team_id,
+            'team_name': team.team_name,
+            'jobs_assigned': Job.query.filter_by(team_id=team.team_id).count()
+        }
+        teams.append(dic)
     return render_template('teams.html', teams=teams)
 
 
 @app.route('/workers', methods=['GET'])
 def main_worker():
+    teams = []
+    db_teams = Team.query.all()
+    for team in db_teams:
+        dic = {
+            'id': team.team_id,
+            'team_name': team.team_name,
+            'jobs_assigned': Job.query.filter_by(team_id=team.team_id).count()
+        }
+        teams.append(dic)
+    workers = []
+    db_workers = Worker.query.all()
+    for worker in db_workers:
+        dic = {
+            'id': worker.worker_id,
+            'worker_name': worker_name,
+            'team_assigned': Team.query.filter_by(team_id=worker.team_id).first().team_name
+        }
+        workers.append(dic)
     return render_template('workers.html', workers=workers, teams=teams)
 
 
@@ -98,9 +125,9 @@ def main_jobs():
             dic['id'] = worker.worker_id
             dic['name'] = worker.worker_name
         teams[team.team_id] = {
-        'id': team.team_id,
-        'name': team.team_name,
-        'workers': workers
+            'id': team.team_id,
+            'name': team.team_name,
+            'workers': workers
         }
     return render_template('jobs.html', jobs=jobs, teams=teams)
 
