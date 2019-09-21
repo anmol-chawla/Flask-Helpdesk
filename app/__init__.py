@@ -1,11 +1,16 @@
 from flask import Flask
-
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 app = Flask(__name__)
-app.secret_key = b'6hc/_gsh,./;2ZZx3c6_s,1//'
-
+db = SQLAlchemy()
+migrate = Migrate()
 
 def create_app():
     global app
-    from app import views
+    app = Flask(__name__)
+    app.config.from_pyfile('config.py')
+    db.init_app(app)
+    migrate.init_app(app, db)
+    from app import views, models
     return app
