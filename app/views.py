@@ -94,8 +94,8 @@ def main_worker():
     for worker in db_workers:
         dic = {
             'id': worker.worker_id,
-            'worker_name': worker_name,
-            'team_assigned': Team.query.filter_by(team_id=worker.team_id).first().team_name
+            'worker_name': worker.worker_name,
+            'team_name': Team.query.filter_by(team_id=worker.team_id).first().team_name
         }
         workers.append(dic)
     return render_template('workers.html', workers=workers, teams=teams)
