@@ -46,3 +46,6 @@ class Job(db.Model):
     job_desc = db.Column('job_desc', db.Text)
     team_id = db.Column('team_id', db.ForeignKey('team.team_id'))
     worker_id = db.Column('worker_id', db.ForeignKey('worker.worker_id'))
+    created_at = db.Column(
+        'created_at', db.DateTime, default=datetime.datetime.utcnow)
+
