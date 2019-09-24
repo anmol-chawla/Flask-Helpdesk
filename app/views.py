@@ -49,6 +49,7 @@ def main_team():
 @login_required
 def main_worker():
     teams = []
+    workers = []
     db_teams = Team.query.all()
     for team in db_teams:
         dic = {
@@ -57,15 +58,14 @@ def main_worker():
             'jobs_assigned': Job.query.filter_by(team_id=team.team_id).count()
         }
         teams.append(dic)
-    workers = []
-    db_workers = Worker.query.all()
-    for worker in db_workers:
-        dic = {
-            'id': worker.worker_id,
-            'worker_name': worker.worker_name,
-            'team_name': Team.query.filter_by(team_id=worker.team_id).first().team_name
-        }
-        workers.append(dic)
+        db_workers = Worker.query.filter_by(team_id=team.team_id).all()
+        for worker in db_workers:
+            dic_worker = {
+                'id': worker.worker_id,
+                'worker_name': worker.worker_name,
+                'team_name': Team.query.filter_by(team_id=worker.team_id).first().team_name
+            }
+            workers.append(dic_worker)
     return render_template('workers.html', workers=workers, teams=teams)
 
 
